@@ -56,7 +56,7 @@ stats bubble_sort(std::vector<int>& arr) {
 	for (size_t i = 0; i < length - 1; i++) {
 		for (size_t j = 0; j < length - i - 1; j++) {
 			if (arr[j] > arr[j + 1]) {
-				swap(arr[i], arr[j]);
+				swap(arr[j+1], arr[j]);
 				stats.copy_count += 1;
 			}
 			stats.comparison_count++;
@@ -97,9 +97,8 @@ stats quick_sort(std::vector<int>& arr, int left, int right) {
 	return stats;
 }
 
-// Процедура для преобразования в двоичную кучу поддерева с корневым узлом i, что является
-// индексом в arr[]. size - размер кучи
 
+// Преобразование в двоичную кучу
 void heapify(std::vector<int>& arr, int size, int i, stats& stats)
 {
 	// Инициализируем наибольший элемент как корень
@@ -251,12 +250,31 @@ stats heap_sort(Iterator begin, Iterator end)
 }
 
 int main() {
+	vector<int> vector_test1{ 0, 12, 3, 1, 5, 9, 8 };
+	vector<int> vector_test2{ 0, 12, 3, 1, 5, 9, 8 };
+	vector<int> vector_test3{ 0, 12, 3, 1, 5, 9, 8 };
+	bubble_sort(vector_test1);
+	quick_sort(vector_test2, 0, vector_test2.size() - 1);
+	heap_sort(vector_test3);
+
+	for (int i = 0; i < vector_test1.size(); ++i) {
+		cout << vector_test1[i] << " ";
+	}
+	cout << "\n";
+	for (int i = 0; i < vector_test2.size(); ++i) {
+		cout << vector_test2[i] << " ";
+	}
+	cout << "\n";
+	for (int i = 0; i < vector_test3.size(); ++i) {
+		cout << vector_test3[i] << " ";
+	}
+	cout << "\n";
+
 	vector<int> vector;
 	cout << "-----* SORTED ARRAY *-----" << endl;
 
 	size_t sum_copy = 0, sum_comparison = 0;
 	for (int i = 0; i < 100; ++i) {
-		srand(i);
 		vector = generate_sorted_vector(SIZE);
 		stats tmp;
 		tmp = bubble_sort(vector);
